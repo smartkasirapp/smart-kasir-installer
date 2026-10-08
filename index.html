@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SMART KASIR | Sistem Kasir Modern</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+body{background:#020617;color:#fff;line-height:1.6;}
+a{text-decoration:none;color:white;}
+.container{width:min(1150px,92%);margin:auto;}
+
+header{background:rgba(2,6,23,.95);backdrop-filter:blur(10px);position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(255,255,255,.08);}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;}
+.logo{font-size:26px;font-weight:800;color:#38bdf8;}
+.menu{display:flex;gap:28px;}
+.menu a{opacity:.85;}
+.menu a:hover{opacity:1;color:#38bdf8;}
+
+.hero{padding:90px 0 40px;text-align:center;}
+.hero h1{font-size:54px;font-weight:800;margin-bottom:20px;line-height:1.1;}
+.hero span{color:#38bdf8;}
+.hero p{max-width:700px;margin:auto;opacity:.8;font-size:18px;}
+
+.btn{display:inline-block;padding:16px 28px;border-radius:12px;font-weight:700;margin:10px;transition:.3s;border:none;cursor:pointer;font-size:16px;}
+.primary{background:#0ea5e9;color:white;}
+.primary:hover{background:#0284c7;transform:translateY(-2px);box-shadow:0 10px 25px rgba(14,165,233,.3);}
+.secondary{border:1px solid rgba(255,255,255,.2);background:transparent;color:white;}
+.secondary:hover{background:rgba(255,255,255,.05);}
+
+.section{padding:80px 0;}
+.title{text-align:center;font-size:40px;font-weight:800;margin-bottom:15px;}
+.subtitle{text-align:center;opacity:.7;max-width:650px;margin:0 auto 50px;font-size:16px;}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;}
+.card{background:#0f172a;padding:28px;border-radius:18px;border:1px solid rgba(255,255,255,.05);transition:.3s;}
+.card:hover{transform:translateY(-6px);border-color:#38bdf8;}
+.card h3{margin-bottom:12px;}
+
+.price{font-size:42px;font-weight:800;margin:15px 0;color:#38bdf8;}
+
+.faq{max-width:800px;margin:auto;}
+details{background:#0f172a;padding:18px;margin-bottom:15px;border-radius:12px;}
+summary{cursor:pointer;font-weight:700;}
+
+footer{background:#01040d;padding:50px 0;text-align:center;opacity:.8;margin-top:60px;}
+
+.whatsapp{position:fixed;right:20px;bottom:20px;background:#22c55e;padding:16px 22px;border-radius:50px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:999;}
+.whatsapp:hover{background:#16a34a;}
+
+/* ============ PANDUAN 3 LANGKAH ============ */
+.panduan-section{
+  padding:60px 0 40px;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(56,189,248,.08), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(34,197,94,.06), transparent 50%),
+    linear-gradient(180deg, #020617 0%, #0a1628 100%);
+  border-top:1px solid rgba(56,189,248,.1);
+  border-bottom:1px solid rgba(56,189,248,.1);
+}
+.panduan-title{text-align:center;font-size:14px;letter-spacing:4px;color:#38bdf8;font-weight:800;margin-bottom:10px;text-transform:uppercase;}
+.panduan-heading{text-align:center;font-size:36px;font-weight:900;margin-bottom:15px;}
+.panduan-heading span{color:#38bdf8;}
+.panduan-desc{text-align:center;max-width:680px;margin:0 auto 50px;opacity:.75;font-size:16px;}
+
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;}
+.step-card{
+  background:linear-gradient(145deg, #0f172a 0%, #0b1220 100%);
+  padding:32px 26px 28px;border-radius:20px;border:1px solid rgba(255,255,255,.06);
+  position:relative;transition:.35s cubic-bezier(.4,0,.2,1);overflow:hidden;
+}
+.step-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg, var(--step-color,#38bdf8), transparent);}
+.step-card:hover{transform:translateY(-8px);border-color:var(--step-color,#38bdf8);box-shadow:0 20px 40px rgba(0,0,0,.4);}
+.step-card[data-step="1"]{--step-color:#38bdf8;}
+.step-card[data-step="2"]{--step-color:#a78bfa;}
+.step-card[data-step="3"]{--step-color:#22c55e;}
+.step-number{position:absolute;top:-30px;right:18px;font-size:110px;font-weight:900;color:var(--step-color);opacity:.08;line-height:1;font-family:"Arial Black",sans-serif;pointer-events:none;}
+.step-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);color:var(--step-color);border-radius:999px;font-size:11px;font-weight:800;letter-spacing:1.5px;margin-bottom:18px;text-transform:uppercase;}
+.step-icon{width:64px;height:64px;border-radius:16px;background:var(--step-color);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:18px;}
+.step-card h3{font-size:20px;font-weight:800;margin-bottom:10px;}
+.step-card p{font-size:14px;opacity:.8;line-height:1.65;margin-bottom:18px;}
+.step-result{background:rgba(0,0,0,.35);border:1px dashed rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;margin-bottom:18px;font-size:13px;}
+.step-result b{color:var(--step-color);display:block;margin-bottom:6px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;}
+.step-result code{display:block;font-family:"Courier New",monospace;color:#fbbf24;font-size:13px;word-break:break-word;}
+.step-cta{display:flex;gap:10px;flex-wrap:wrap;}
+.step-btn{flex:1;min-width:120px;padding:12px 18px;border-radius:10px;font-weight:700;font-size:13px;text-align:center;transition:.25s;cursor:pointer;border:none;font-family:inherit;}
+.step-btn.main{background:var(--step-color);color:#fff;}
+.step-btn.main:hover{filter:brightness(1.15);transform:translateY(-2px);}
+.step-flow-mini{display:flex;align-items:center;justify-content:center;gap:10px;margin:30px auto 0;flex-wrap:wrap;}
+.flow-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.2);}
+.flow-dot.s1{background:#38bdf8;} .flow-dot.s2{background:#a78bfa;} .flow-dot.s3{background:#22c55e;}
+.flow-line{flex:1;max-width:80px;height:2px;background:rgba(255,255,255,.1);}
+.info-banner{max-width:900px;margin:40px auto 0;background:linear-gradient(135deg, rgba(34,197,94,.08), rgba(56,189,248,.08));border:1px solid rgba(34,197,94,.25);border-radius:16px;padding:18px 22px;display:flex;align-items:center;gap:16px;font-size:14px;}
+.info-banner .ib-icon{font-size:28px;flex:none;}
+.info-banner b{color:#22c55e;}
+
+/* ============ FORM ============ */
+.regis-wrap{max-width:640px;margin:auto;background:#0f172a;padding:40px;border-radius:18px;border:1px solid rgba(255,255,255,.08);}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;margin-bottom:8px;font-weight:600;font-size:14px;opacity:.9;}
+.form-group input, .form-group textarea{width:100%;padding:14px 16px;background:#020617;border:1px solid rgba(255,255,255,.1);border-radius:10px;color:white;font-size:15px;font-family:inherit;transition:.3s;}
+.form-group input:focus, .form-group textarea:focus{outline:none;border-color:#38bdf8;box-shadow:0 0 0 3px rgba(56,189,248,.15);}
+.form-group textarea{resize:vertical;min-height:80px;}
+
+.device-count-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+.device-opt{padding:12px;background:#020617;border:2px solid rgba(255,255,255,.08);border-radius:10px;text-align:center;cursor:pointer;transition:.2s;font-weight:700;font-size:14px;}
+.device-opt input{display:none;}
+.device-opt span{display:block;font-size:11px;opacity:.6;font-weight:600;margin-top:2px;}
+.device-opt.active{border-color:#38bdf8;background:rgba(56,189,248,.08);color:#38bdf8;}
+
+.btn-submit{width:100%;padding:16px;font-size:16px;font-weight:700;background:#0ea5e9;color:white;border:none;border-radius:10px;cursor:pointer;transition:.3s;}
+.btn-submit:hover{background:#0284c7;}
+.btn-submit:disabled{background:#475569;cursor:not-allowed;}
+.btn-purple{background:linear-gradient(135deg,#a78bfa,#8b5cf6) !important;}
+.btn-purple:hover{filter:brightness(1.1);background:#8b5cf6 !important;}
+.btn-gray{background:#334155 !important;margin-top:10px;}
+.btn-copy{background:#38bdf8 !important;color:#000 !important;margin-top:10px;}
+.btn-copy:hover{background:#0ea5e9 !important;}
+
+/* ============ INFO BOX & BADGE ============ */
+.infoBox{background:#020617;padding:14px;border-radius:12px;margin-bottom:16px;line-height:1.7;font-size:14px;border:1px solid rgba(56,189,248,.2);}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:bold;}
+.badge-trial{background:#38bdf8;color:#000;}
+.badge-paid{background:#22c55e;color:#000;}
+.badge-expired{background:#ef4444;color:#fff;}
+
+.list{margin-top:14px;font-size:14px;opacity:.95;line-height:1.7;}
+.userBox{background:#020617;padding:10px 12px;border-radius:10px;margin-top:8px;border-left:4px solid #38bdf8;font-size:13px;}
+.userBox.inactive{border-color:#64748b;opacity:.6;}
+
+/* ============ ROLE CARDS ============ */
+.role-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:14px 0;}
+.role-card{background:#020617;border:2px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;transition:.2s;}
+.role-card.ok{border-color:#22c55e;}
+.role-head{font-weight:800;font-size:14px;margin-bottom:10px;letter-spacing:1px;}
+.role-head small{font-weight:600;opacity:.7;letter-spacing:0;}
+.role-kasir .role-head{color:#38bdf8;}
+.role-admin .role-head{color:#a78bfa;}
+.role-owner .role-head{color:#fbbf24;}
+.role-card input{width:100%;padding:11px 12px;margin-top:8px;border:none;border-radius:9px;font-size:14px;background:#0f172a;color:#fff;border:1px solid rgba(255,255,255,.08);font-family:inherit;}
+.role-card input:focus{outline:none;border-color:#38bdf8;}
+.dev-status{font-size:11px;margin-top:6px;min-height:16px;opacity:.85;}
+.dev-status.ok{color:#22c55e;font-weight:700;}
+.dev-status.err{color:#ef4444;}
+.shift-label{font-size:10px;opacity:.6;margin-top:8px;letter-spacing:1px;font-weight:700;}
+
+/* ============ MODAL & PIN ============ */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(10px);}
+.modal-overlay.active{display:flex;}
+.modal-box{background:linear-gradient(180deg,#0f172a 0%, #0b1220 100%);padding:40px;border-radius:20px;max-width:540px;width:100%;border:1px solid rgba(56,189,248,.3);max-height:92vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.6);}
+.modal-box h2{color:#38bdf8;margin-bottom:10px;text-align:center;font-size:26px;}
+.pin-group{background:#020617;padding:14px 16px;border-radius:10px;margin:10px 0;border-left:3px solid #38bdf8;}
+.pin-group.device{border-left-color:#a78bfa;}
+.pin-group.hasil-kasir{border-left-color:#38bdf8;}
+.pin-group.hasil-admin{border-left-color:#a78bfa;}
+.pin-group.hasil-owner{border-left-color:#fbbf24;}
+.pin-group .label{font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:1px;font-weight:700;}
+.pin-group .value{font-size:20px;font-weight:800;color:#38bdf8;margin-top:4px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.pin-group.device .value{color:#a78bfa;}
+.pin-group .sub{font-size:12px;opacity:.7;margin-top:4px;}
+.copy-btn{background:#1e293b;border:none;color:white;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;transition:.2s;}
+.copy-btn:hover{background:#334155;}
+
+.alert{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);padding:14px;border-radius:10px;margin:15px 0;font-size:14px;}
+.alert strong{color:#22c55e;}
+.alert.warn{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3);}
+.alert.warn strong{color:#f59e0b;}
+
+.download-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:900px;margin:auto;}
+.download-card{background:#0f172a;padding:25px;border-radius:16px;border:1px solid rgba(255,255,255,.08);}
+.download-card h4{font-size:20px;margin-bottom:15px;display:flex;align-items:center;gap:10px;}
+.download-card .icon{font-size:28px;}
+.dl-list{list-style:none;}
+.dl-list li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;}
+.dl-list li:last-child{border:none;}
+.dl-btn{background:#0ea5e9;color:white;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:600;transition:.3s;}
+.dl-btn:hover{background:#0284c7;}
+.dl-btn.android{background:#22c55e;}
+.dl-btn.android:hover{background:#16a34a;}
+
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin 1s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.note-box{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.3);padding:15px;border-radius:10px;font-size:14px;margin-bottom:20px;}
+.trial-info{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);padding:15px;border-radius:10px;font-size:14px;margin-bottom:15px;}
+.trial-info strong{color:#22c55e;}
+
+@media(max-width:768px){
+  .menu{display:none;}
+  .hero h1{font-size:34px;}
+  .title{font-size:28px;}
+  .panduan-heading{font-size:26px;}
+  .regis-wrap{padding:25px;}
+  .step-number{font-size:90px;}
+  .info-banner{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container">
+<nav>
+  <div class="logo">⚡ SMART KASIR</div>
+  <div class="menu">
+    <a href="#panduan">Panduan</a>
+    <a href="#registrasi">Registrasi</a>
+    <a href="#aktivasi">Aktivasi</a>
+    <a href="#download">Download</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+</div>
+</header>
+
+<section class="hero">
+<div class="container">
+  <h1>Kelola Toko Lebih Mudah Dengan <span>SMART KASIR</span></h1>
+  <p>Sistem kasir modern untuk minimarket, grosir, toko kelontong, apotek, dan UMKM Indonesia.<br>Cepat • Stabil • Online & Offline</p>
+  <br>
+  <a href="#panduan" class="btn primary">🚀 Mulai Sekarang</a>
+  <a href="#download" class="btn secondary">Download Aplikasi</a>
+</div>
+</section>
+
+<!-- ============ PANDUAN 3 LANGKAH ============ -->
+<section class="panduan-section" id="panduan">
+<div class="container">
+  <div class="panduan-title">📋 Panduan Memulai</div>
+  <div class="panduan-heading">Aktif dalam <span>3 Langkah</span></div>
+  <div class="panduan-desc">Ikuti urutan berikut agar toko Anda aktif dan siap dipakai. Butuh waktu kurang dari 5 menit.</div>
+
+  <div class="steps">
+    <div class="step-card" data-step="1">
+      <div class="step-number">1</div>
+      <div class="step-badge">📍 Langkah 1</div>
+      <div class="step-icon">🏪</div>
+      <h3>Daftarkan Toko & Minimal 3 Device</h3>
+      <p>Isi data toko dan tentukan jumlah device (minimal 3). Sistem otomatis membuat akun dan mengaktifkan trial 7 hari.</p>
+      <div class="step-result"><b>Anda akan mendapatkan</b><code>🔑 PIN Toko + PIN Device (1, 2, 3…)</code></div>
+      <div class="step-cta"><a href="#registrasi" class="step-btn main">Daftar Sekarang</a></div>
+    </div>
+
+    <div class="step-card" data-step="2">
+      <div class="step-number">2</div>
+      <div class="step-badge">🔐 Langkah 2</div>
+      <div class="step-icon">👥</div>
+      <h3>Masukkan PIN Toko & PIN Device</h3>
+      <p>Buat PIN Login: <b>Kasir 3 shift</b> (＋device kasir tambahan jika pilih 4/5 device), <b>Admin</b>, dan <b>Owner</b>. Form terisi otomatis setelah mendaftar.</p>
+      <div class="step-result"><b>Catatan penting</b><code>📌 PIN Toko sama, PIN Device harus berbeda (1 device = 1 role)</code></div>
+      <div class="step-cta"><a href="#aktivasi" class="step-btn main">Buka Form Aktivasi</a></div>
+    </div>
+
+    <div class="step-card" data-step="3">
+      <div class="step-number">3</div>
+      <div class="step-badge">📦 Langkah 3</div>
+      <div class="step-icon">📥</div>
+      <h3>Unduh & Install Sesuai Perangkat</h3>
+      <p>Setelah PIN login terbentuk, unduh aplikasi sesuai perangkat. Tersedia versi Desktop Windows dan Android APK untuk Owner, Admin, dan Kasir.</p>
+      <div class="step-result"><b>Pilih sesuai perangkat</b><code>💻 Windows (.exe) • 📱 Android (.apk)</code></div>
+      <div class="step-cta"><a href="#download" class="step-btn main">Download Aplikasi</a></div>
+    </div>
+  </div>
+
+  <div class="step-flow-mini">
+    <span class="flow-dot s1"></span><span class="flow-line"></span>
+    <span class="flow-dot s2"></span><span class="flow-line"></span>
+    <span class="flow-dot s3"></span>
+  </div>
+
+  <div class="info-banner">
+    <div class="ib-icon">🎁</div>
+    <div><b>GRATIS TRIAL 7 HARI</b> — Daftar sekarang, akun langsung aktif tanpa konfirmasi manual. Semua fitur lengkap dapat Anda coba!</div>
+  </div>
+</div>
+</section>
+
+<!-- ============ FITUR ============ -->
+<section class="section" id="fitur">
+<div class="container">
+  <div class="title">Fitur Unggulan</div>
+  <div class="subtitle">Solusi lengkap untuk manajemen toko Anda dari A sampai Z</div>
+  <div class="grid">
+    <div class="card"><h3>🛒 Kasir Cepat</h3><p>Transaksi hanya hitungan detik dengan dukungan scanner & shortcut.</p></div>
+    <div class="card"><h3>📦 Manajemen Stok</h3><p>Gudang, display, mutasi stok, stok opname realtime.</p></div>
+    <div class="card"><h3>📊 Laporan Lengkap</h3><p>Harian, bulanan, laba rugi, dan laporan owner.</p></div>
+    <div class="card"><h3>📱 Multi Device</h3><p>Desktop, tablet dan HP dengan sinkronisasi otomatis.</p></div>
+    <div class="card"><h3>🖨 Bluetooth Printer</h3><p>Support printer thermal Bluetooth & USB.</p></div>
+    <div class="card"><h3>☁ Cloud Sync</h3><p>Data aman dan tersimpan, akses kapan saja.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ============ LANGKAH 1 : REGISTRASI ============ -->
+<section class="section" id="registrasi">
+<div class="container">
+  <div class="title">Langkah 1 — Registrasi Toko</div>
+  <div class="subtitle">Isi data toko dan tentukan jumlah device (minimal 3). Anda langsung menerima PIN Toko & PIN Device setelah submit.</div>
+
+  <div class="note-box">🎁 <strong>GRATIS TRIAL 7 HARI!</strong> Daftar sekarang, langsung dapat PIN, dan bisa langsung dipakai. Tanpa konfirmasi manual.</div>
+
+  <div class="regis-wrap">
+    <form id="regisForm">
+      <div class="form-group">
+        <label>Email Aktif (opsional)</label>
+        <input type="email" name="Email" id="email" placeholder="contoh@email.com">
+      </div>
+      <div class="form-group">
+        <label>Nama Pemilik Toko *</label>
+        <input type="text" name="Nama_Pemilik" id="pemilik" required placeholder="Nama lengkap pemilik">
+      </div>
+      <div class="form-group">
+        <label>Nama Toko *</label>
+        <input type="text" name="Nama_Toko" id="toko" required placeholder="Contoh: Toko Berkah Jaya">
+      </div>
+      <div class="form-group">
+        <label>Alamat Toko *</label>
+        <textarea name="Alamat_Toko" id="alamat" required placeholder="Alamat lengkap toko"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Nomor WhatsApp *</label>
+        <input type="tel" name="No_WA" id="wa" required placeholder="08xxxxxxxxxx" pattern="[0-9]{10,13}">
+      </div>
+
+      <label style="display:block;margin-bottom:10px;font-weight:600;font-size:14px;opacity:.9;">Jumlah Device yang Akan Dipakai *</label>
+      <div class="device-count-row">
+        <label class="device-opt active" data-count="3"><input type="radio" name="jml_device" value="3" checked>3 Device<span>Kasir+Admin+Owner</span></label>
+        <label class="device-opt" data-count="4"><input type="radio" name="jml_device" value="4">4 Device<span>＋Kasir tambahan</span></label>
+        <label class="device-opt" data-count="5"><input type="radio" name="jml_device" value="5">5 Device<span>＋2 Kasir tambahan</span></label>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn"><span id="btnText">🔑 Daftar & Dapatkan PIN Sekarang</span></button>
+    </form>
+
+    <!-- ✅ Panel setelah pendaftaran berhasil -->
+    <div id="regisDone" style="display:none">
+      <div class="alert">
+        <strong>✅ PENDAFTARAN SELESAI!</strong><br>
+        Form pendaftaran disembunyikan agar tidak terjadi proses ulang / berputar terus.
+      </div>
+      <div class="infoBox" id="regisDoneInfo">-</div>
+      <button class="btn-submit btn-copy" onclick="copySemuaPin()">📋 COPY SEMUA PIN TOKO</button>
+      <button class="btn-submit btn-purple" onclick="goAktivasi()">🔐 LANJUT: ISI FORM LANGKAH 2</button>
+      <button class="btn-submit btn-gray" onclick="regisUlang()">📝 Daftarkan Toko Lain</button>
+      <button class="btn-submit" style="background:transparent;border:1px solid rgba(255,255,255,.25);margin-top:10px;font-size:13px;" onclick="resetLanding()">🔄 Reset Tampilan (munculkan form pendaftaran)</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============ LANGKAH 2 : AKTIVASI & BUAT PIN LOGIN ============ -->
+<section class="section" id="aktivasi" style="background:linear-gradient(180deg, rgba(167,139,250,.05), transparent);">
+<div class="container">
+  <div class="title">Langkah 2 — Aktivasi & Buat PIN Login</div>
+  <div class="subtitle">Masukkan <b>PIN Toko</b> dan <b>PIN Device</b>. Kasir otomatis <b>3 shift</b>; pilih 4/5 device saat daftar = device kasir tambahan (kasir duduk / kasir mobil).</div>
+
+  <div class="regis-wrap">
+
+    <div id="infoToko" class="infoBox" style="display:none"></div>
+
+    <!-- Verifikasi PIN Toko -->
+    <div id="verifArea">
+      <div class="form-group">
+        <label>🔑 PIN Toko (dari pendaftaran)</label>
+        <input type="text" id="pinTokoInput" placeholder="Contoh: 123456" inputmode="numeric" autocomplete="off">
+      </div>
+      <button class="btn-submit" id="btnVerif" onclick="verifikasiToko()">🔍 VERIFIKASI PIN TOKO</button>
+    </div>
+
+    <!-- Area role & device -->
+    <div id="deviceArea" style="display:none">
+      <div class="alert warn" style="margin:18px 0 6px;">
+        <strong>📱 PIN Device harus berbeda untuk tiap kartu.</strong><br>
+        Isi nama kasir per shift (kosongkan shift yang belum ada). Status ✅ muncul otomatis saat PIN Device cocok.
+      </div>
+
+      <div class="role-grid">
+        <div id="kasirCards"><!-- kartu kasir dinamis (1-3 device × 3 shift) --></div>
+
+        <div class="role-card role-admin" id="cardAdmin">
+          <div class="role-head">⚙️ ADMIN</div>
+          <input type="text" id="pinDevAdmin" placeholder="PIN Device Admin" inputmode="numeric" autocomplete="off">
+          <div class="dev-status" id="statAdmin">-</div>
+          <input type="text" id="namaAdmin" placeholder="Nama admin" autocomplete="off">
+        </div>
+
+        <div class="role-card role-owner" id="cardOwner">
+          <div class="role-head">👑 OWNER</div>
+          <input type="text" id="pinDevOwner" placeholder="PIN Device Owner" inputmode="numeric" autocomplete="off">
+          <div class="dev-status" id="statOwner">-</div>
+          <input type="text" id="namaOwner" placeholder="Nama owner" autocomplete="off">
+        </div>
+      </div>
+
+      <div id="listUser" class="list"></div>
+
+      <button class="btn-submit btn-purple" id="btnBuat" onclick="buatPinLogin()">🔐 BUAT PIN LOGIN (KASIR, ADMIN, OWNER)</button>
+    </div>
+
+    <!-- ✅ Ringkasan setelah PIN login berhasil -->
+    <div id="hasilArea" style="display:none">
+      <div class="alert" style="margin-top:20px;">
+        <strong>🎉 AKTIVASI SELESAI!</strong><br>
+        Form aktivasi disembunyikan. Berikut PIN login seluruh user — simpan baik-baik.
+      </div>
+      <div id="hasilList"></div>
+      <button class="btn-submit btn-copy" onclick="copySemuaPin()">📋 COPY SEMUA PIN (TOKO + DEVICE + USER)</button>
+      <div class="alert warn"><strong>⬇️ Langkah 3:</strong> Unduh aplikasi sesuai perangkat, lalu login dengan PIN di atas.</div>
+      <button class="btn-submit" style="background:#22c55e;color:#000;" onclick="location.hash='#download'">⬇️ LANJUT DOWNLOAD APLIKASI</button>
+      <button class="btn-submit btn-gray" onclick="aktivasiUlang()">🔓 Aktivasi Ulang / Tambah User</button>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ============ HARGA ============ -->
+<section class="section" id="harga">
+<div class="container">
+  <div class="title">Paket Harga</div>
+  <div class="subtitle">Pilih paket yang sesuai dengan kebutuhan toko Anda</div>
+  <div class="grid">
+    <div class="card"><h3>Starter</h3><div class="price">Rp99K</div><p>1 Toko<br>1 Kasir<br>Support Dasar</p></div>
+    <div class="card" style="border-color:#38bdf8;"><h3>Bisnis ⭐</h3><div class="price">Rp199K</div><p>Multi Kasir<br>Laporan Lengkap<br>Cloud Backup</p></div>
+    <div class="card"><h3>Enterprise</h3><div class="price">Custom</div><p>Multi Cabang<br>Unlimited Device<br>Support Prioritas</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ============ DOWNLOAD (DIRECT DOWNLOAD) ============ -->
+<section class="section" id="download">
+<div class="container">
+  <div class="title">Langkah 3 — Download Aplikasi</div>
+  <div class="subtitle">Klik tombol di bawah — download langsung dimulai tanpa membuka halaman preview.</div>
+  <div class="note-box">🔑 <strong>Sudah punya PIN Login?</strong> Langsung install aplikasi, lalu login sesuai role (Kasir / Admin / Owner).</div>
+
+  <div class="download-grid">
+    <div class="download-card">
+      <h4><span class="icon">💻</span> Desktop Windows</h4>
+      <ul class="dl-list">
+        <li><span>👑 Versi Owner</span><a href="#" data-dl="owner_exe" class="dl-btn">Download .exe</a></li>
+        <li><span>💼 Versi Kasir</span><a href="#" data-dl="kasir_exe" class="dl-btn">Download .exe</a></li>
+        <li><span>⚙️ Versi Admin</span><a href="#" data-dl="admin_exe" class="dl-btn">Download .exe</a></li>
+      </ul>
+    </div>
+    <div class="download-card">
+      <h4><span class="icon">📱</span> Android APK</h4>
+      <ul class="dl-list">
+        <li><span>👑 Versi Owner</span><a href="#" data-dl="owner_apk" class="dl-btn android">Download APK</a></li>
+        <li><span>💼 Versi Kasir</span><a href="#" data-dl="kasir_apk" class="dl-btn android">Download APK</a></li>
+        <li><span>⚙️ Versi Admin</span><a href="#" data-dl="admin_apk" class="dl-btn android">Download APK</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note-box" style="margin-top:20px;">
+    📂 File dapat disimpan di <b>Google Drive</b> atau <b>Supabase Storage</b>.
+    Pastikan sharing file = <b>"Anyone with the link (Viewer)"</b> agar download langsung jalan.
+  </div>
+</div>
+</section>
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+<div class="container">
+  <div class="title">Pertanyaan Umum</div>
+  <div class="faq">
+    <details><summary>Apakah bisa offline?</summary><p>Ya, SMART KASIR dapat berjalan secara offline. Data otomatis sinkron saat online kembali.</p></details>
+    <details><summary>Apakah mendukung printer Bluetooth?</summary><p>Ya, mendukung printer thermal Bluetooth & USB secara native.</p></details>
+    <details><summary>Bisakah digunakan banyak kasir?</summary><p>Ya — setiap device kasir mendukung 3 shift (3 PIN login berbeda), dan bisa menambah device kasir tambahan (kasir duduk / kasir mobil).</p></details>
+    <details><summary>Bagaimana cara login pertama kali?</summary><p>Setelah mendaftar (Langkah 1), isi form Langkah 2 dengan PIN Toko & PIN Device untuk membuat PIN Login Kasir/Admin/Owner. Gunakan PIN Login tersebut di aplikasi.</p></details>
+    <details><summary>Kenapa PIN Device harus berbeda?</summary><p>Setiap device (HP/Tablet/Komputer) hanya boleh dipakai untuk 1 role agar data transaksi aman dan tidak tumpang tindih.</p></details>
+    <details><summary>Apakah trial benar-benar gratis?</summary><p>Ya, 7 hari trial full fitur tanpa kartu kredit. Setelah trial habis, Anda bisa upgrade ke paket berbayar.</p></details>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="container">
+    ⚡ SMART KASIR © 2026<br>
+    Sistem Kasir Modern Indonesia<br>
+    <small>Email: smartkasir.app@gmail.com | WA: 085189998761</small>
+  </div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/6285189998761" target="_blank">💬 WhatsApp Admin</a>
+
+<!-- ============ MODAL SUKSES REGISTRASI ============ -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box">
+    <h2>🎉 Pendaftaran Berhasil!</h2>
+    <div class="trial-info">
+      <strong>✅ AKUN AKTIF SEKARANG!</strong><br>
+      Status: <b>TRIAL 7 HARI</b><br>
+      Berakhir: <span id="showExpired">-</span>
+    </div>
+    <p style="text-align:center;opacity:.8;margin-bottom:10px;">Simpan PIN di bawah ini dengan aman:</p>
+
+    <div class="pin-group">
+      <div class="label">🔑 PIN Toko (untuk semua role)</div>
+      <div class="value"><span id="showPinToko">-</span><button class="copy-btn" onclick="copyPin('showPinToko', this)">📋 Salin</button></div>
+    </div>
+    <div class="pin-group">
+      <div class="label">🏷 Kode Toko</div>
+      <div class="value"><span id="showKodeToko">-</span><button class="copy-btn" onclick="copyPin('showKodeToko', this)">📋 Salin</button></div>
+    </div>
+
+    <div class="alert warn"><strong>📱 PIN Device (masing-masing device berbeda)</strong></div>
+
+    <div class="pin-group device" id="wrapDev1">
+      <div class="label">📱 PIN Device 1 (Kasir)</div>
+      <div class="value"><span id="showPinDevice1">-</span><button class="copy-btn" onclick="copyPin('showPinDevice1', this)">📋 Salin</button></div>
+    </div>
+    <div class="pin-group device" id="wrapDev2">
+      <div class="label">📱 PIN Device 2 (Admin)</div>
+      <div class="value"><span id="showPinDevice2">-</span><button class="copy-btn" onclick="copyPin('showPinDevice2', this)">📋 Salin</button></div>
+    </div>
+    <div class="pin-group device" id="wrapDev3">
+      <div class="label">📱 PIN Device 3 (Owner)</div>
+      <div class="value"><span id="showPinDevice3">-</span><button class="copy-btn" onclick="copyPin('showPinDevice3', this)">📋 Salin</button></div>
+    </div>
+    <div class="pin-group device" id="wrapDev4" style="display:none;">
+      <div class="label">📱 PIN Device 4 (Kasir tambahan)</div>
+      <div class="value"><span id="showPinDevice4">-</span><button class="copy-btn" onclick="copyPin('showPinDevice4', this)">📋 Salin</button></div>
+    </div>
+    <div class="pin-group device" id="wrapDev5" style="display:none;">
+      <div class="label">📱 PIN Device 5 (Kasir tambahan)</div>
+      <div class="value"><span id="showPinDevice5">-</span><button class="copy-btn" onclick="copyPin('showPinDevice5', this)">📋 Salin</button></div>
+    </div>
+
+    <div class="alert warn" id="devPartialWarn" style="display:none;">
+      <strong>⚠️ Catatan:</strong> Sebagian PIN Device belum dibuat otomatis (fungsi database versi lama). Hubungi admin untuk menambahkan device, atau jalankan update SQL di Supabase.
+    </div>
+
+    <div class="alert">
+      <strong>📌 Langkah Selanjutnya:</strong><br>
+      1. Klik tombol ungu → form Langkah 2 terisi otomatis<br>
+      2. Isi nama kasir (3 shift), admin, owner<br>
+      3. Buat PIN Login lalu download aplikasi
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn-submit btn-copy" style="flex:1;min-width:130px;margin-top:0;" onclick="copySemuaPin()">📋 Copy Semua PIN</button>
+      <button class="btn-submit btn-purple" style="flex:2;min-width:200px;" onclick="goAktivasi()">🔐 Isi Form Langkah 2 (Otomatis)</button>
+      <button class="btn-submit" style="flex:1;min-width:120px;" onclick="closeModal()">⬇️ Download</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCRIPT ============ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const sb = supabase.createClient(
+  "https://jzhdzuzutoxalujljmir.supabase.co",
+  "sb_publishable_9Tsra6rWlivX6HHXtxmNEA_ekEMeJP7"
+);
+
+let TOKO_AKTIF    = null;
+let DEVICES_AKTIF = [];
+let KASIR_CARDS   = 1;
+
+function formatNoHP(n){
+  if(!n) return null;
+  n = n.replace(/\s/g, "");
+  if(n.startsWith("0")) return "62" + n.slice(1);
+  if(n.startsWith("62")) return n;
+  return null;
+}
+
+document.querySelectorAll('.device-opt').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('.device-opt').forEach(o => o.classList.remove('active'));
+    opt.classList.add('active');
+  });
+});
+
+/* ================= LANGKAH 1 : REGISTRASI ================= */
+const form = document.getElementById('regisForm');
+const submitBtn = document.getElementById('submitBtn');
+const btnText = document.getElementById('btnText');
+
+function isSchemaErr(msg){
+  return /could not find the function|schema cache/i.test(msg || "");
+}
+
+async function tambahDeviceClient(tokoId, dariNomor, sampaiNomor){
+  const { data: devs, error: errDev } = await sb
+    .from('devices').select('id, pin, device_name').eq('toko_id', tokoId);
+  if(errDev) throw errDev;
+  const used = new Set((devs || []).map(d => String(d.pin)));
+  const baru = [];
+  for(let n = dariNomor; n <= sampaiNomor; n++){
+    let pin, guard = 0;
+    do { pin = String(Math.floor(100000 + Math.random()*900000)); guard++; }
+    while(used.has(pin) && guard < 60);
+    used.add(pin);
+    const { error } = await sb.from('devices').insert({
+      toko_id: tokoId, device_name: 'Device ' + n,
+      pin: pin, is_active: true, status: 'ACTIVE', app_mode: 'WEB'
+    });
+    if(error) throw error;
+    baru.push(pin);
+  }
+  return baru;
+}
+
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+
+  const pemilikValue = document.getElementById('pemilik').value.trim();
+  const tokoValue = document.getElementById('toko').value.trim();
+  const alamatValue = document.getElementById('alamat').value.trim();
+  const waValue = document.getElementById('wa').value.trim();
+  const emailValue = document.getElementById('email').value.trim() || null;
+  const jmlDevice = parseInt(document.querySelector('input[name="jml_device"]:checked').value);
+
+  const no_hp = formatNoHP(waValue);
+  if(!no_hp){ alert("❌ Format nomor WA salah. Gunakan 08xxx"); return; }
+  if(jmlDevice < 3){ alert("❌ Minimal 3 device harus dipilih untuk mendapatkan PIN."); return; }
+
+  btnText.innerHTML = '<span class="spinner"></span>Memproses pendaftaran...';
+  submitBtn.disabled = true;
+
+  try {
+    let data = null;
+
+    let r1 = await sb.rpc('register_toko_baru', {
+      p_nama: tokoValue, p_alamat: alamatValue, p_no_hp: no_hp,
+      p_no_telp: waValue, p_email: emailValue, p_pemilik: pemilikValue,
+      p_jml_device: jmlDevice
+    });
+
+    if(r1.error && isSchemaErr(r1.error.message)){
+      const r2 = await sb.rpc('register_toko_baru', {
+        p_nama: tokoValue, p_alamat: alamatValue, p_no_hp: no_hp,
+        p_no_telp: waValue, p_email: emailValue, p_pemilik: pemilikValue
+      });
+      if(r2.error) throw new Error(r2.error.message);
+      data = r2.data;
+      if(jmlDevice > 2){
+        try{
+          let tokoId = data.toko_id;
+          if(!tokoId){ const t = await cariTokoByPin(data.pin_toko); tokoId = t ? t.id : null; }
+          if(tokoId){
+            const extra = await tambahDeviceClient(tokoId, 3, jmlDevice);
+            extra.forEach((p, i) => { data['pin_dev' + (3 + i)] = p; });
+          } else data.__devPartial = true;
+        }catch(ex){ data.__devPartial = true; }
+      }
+    } else {
+      if(r1.error) throw new Error(r1.error.message);
+      data = r1.data;
+    }
+
+    if(!data || !data.success) throw new Error('Pendaftaran gagal diproses server');
+
+    document.getElementById('showPinToko').textContent = data.pin_toko || '-';
+    document.getElementById('showKodeToko').textContent = data.kode_toko || '-';
+    for(let i = 1; i <= 5; i++){
+      const val = data['pin_dev' + i] || data['pin_device_' + i];
+      const wrap = document.getElementById('wrapDev' + i);
+      const span = document.getElementById('showPinDevice' + i);
+      if(val){ span.textContent = val; wrap.style.display = 'block'; }
+      else wrap.style.display = 'none';
+    }
+    document.getElementById('devPartialWarn').style.display = data.__devPartial ? 'block' : 'none';
+
+    const expDate = new Date(data.expired);
+    document.getElementById('showExpired').textContent = expDate.toLocaleDateString("id-ID", { day:'numeric', month:'long', year:'numeric' });
+    document.getElementById('successModal').classList.add('active');
+
+    /* ✅ STOP SPINNER + SEMBUNYIKAN FORM PENDAFTARAN */
+    btnText.innerHTML = '🔑 Daftar & Dapatkan PIN Sekarang';
+    submitBtn.disabled = false;
+    form.style.display = 'none';
+    showRegisDone(tokoValue, data.kode_toko, data.pin_toko);
+
+    try{
+      localStorage.setItem('SK_REGIS_DONE', '1');
+      localStorage.setItem('SK_JML_DEVICE', String(jmlDevice));
+      localStorage.setItem('SK_PIN_TOKO', data.pin_toko || '');
+      localStorage.setItem('SK_KODE_TOKO', data.kode_toko || '');
+      for(let i = 1; i <= 5; i++){
+        const val = data['pin_dev' + i] || data['pin_device_' + i];
+        if(val) localStorage.setItem('SK_PIN_DEV' + i, val);
+      }
+      localStorage.setItem('SK_TOKO_NAMA', tokoValue);
+      localStorage.setItem('SK_TOKO_ALAMAT', alamatValue);
+      localStorage.setItem('SK_PEMILIK', pemilikValue);
+    }catch(ex){}
+
+    const pesan = `Halo Admin SMART KASIR 👋%0A%0A🆕 *PELANGGAN BARU*%0A%0A🏪 Toko: ${tokoValue}%0A👤 Pemilik: ${pemilikValue}%0A📱 WA: ${waValue}%0A📧 Email: ${emailValue || '-'}%0A🆔 Kode: ${data.kode_toko}%0A📱 Device: ${jmlDevice}%0A🎁 Status: TRIAL 7 hari%0A⏰ Aktif s/d: ${expDate.toLocaleDateString("id-ID")}%0A%0AAkun otomatis aktif di sistem.`;
+    setTimeout(() => { try{ window.open(`https://wa.me/6285189998761?text=${pesan}`, '_blank'); }catch(ex){} }, 1500);
+
+  } catch(err) {
+    let msg = err.message || String(err);
+    if(isSchemaErr(msg)){
+      msg += "\n\n➡️ SOLUSI: Jalankan script SQL update fungsi register_toko_baru di Supabase SQL Editor, lalu coba lagi.";
+    } else if(/statement timeout|timeout/i.test(msg)){
+      msg += "\n\n➡️ SOLUSI: Fungsi database masih versi bermasalah (loop timeout). Jalankan ulang SQL PERBAIKAN v4 di Supabase SQL Editor, lalu coba lagi.";
+    }
+    alert("❌ Pendaftaran gagal:\n" + msg + "\n\nSilakan coba lagi atau hubungi admin.");
+    btnText.innerHTML = '🔑 Daftar & Dapatkan PIN Sekarang';
+    submitBtn.disabled = false;
+  }
+});
+
+function showRegisDone(namaToko, kode, pinToko){
+  document.getElementById('regisDoneInfo').innerHTML =
+    '🏪 <b>' + (namaToko || '-') + '</b><br>' +
+    '🏷️ Kode Toko: <b>' + (kode || '-') + '</b><br>' +
+    '🔑 PIN Toko: <b>' + (pinToko || '-') + '</b><br>' +
+    '<small style="opacity:.7">PIN Device lengkap tampil di modal & tersimpan otomatis ke form Langkah 2.</small>';
+  document.getElementById('regisDone').style.display = 'block';
+}
+
+function regisUlang(){
+  /* tanpa confirm() — aman untuk WebView yang memblokir dialog */
+  try{
+    localStorage.removeItem('SK_REGIS_DONE');
+    localStorage.removeItem('SK_AKTIVASI_DONE');
+    localStorage.removeItem('SK_HASIL_LOGIN');
+  }catch(ex){}
+  document.getElementById('regisDone').style.display = 'none';
+  document.getElementById('hasilArea').style.display = 'none';
+  document.getElementById('deviceArea').style.display = 'none';
+  document.getElementById('verifArea').style.display = 'block';
+  form.style.display = 'block';
+  form.reset();
+  document.querySelectorAll('.device-opt').forEach((o,i)=>o.classList.toggle('active', i===0));
+  document.getElementById('registrasi').scrollIntoView({ behavior:'smooth' });
+}
+
+/* 🔄 reset total tampilan landing (form pendaftaran muncul lagi) */
+function resetLanding(){
+  try{
+    ["SK_REGIS_DONE","SK_AKTIVASI_DONE","SK_HASIL_LOGIN","SK_JML_DEVICE",
+     "SK_PIN_TOKO","SK_KODE_TOKO","SK_TOKO_NAMA","SK_TOKO_ALAMAT","SK_PEMILIK",
+     "SK_PIN_DEV1","SK_PIN_DEV2","SK_PIN_DEV3","SK_PIN_DEV4","SK_PIN_DEV5",
+     "SK_LOGIN_KASIR","SK_LOGIN_ADMIN","SK_LOGIN_OWNER"
+    ].forEach(k => localStorage.removeItem(k));
+  }catch(ex){}
+  location.reload();
+}
+
+function closeModal(){
+  document.getElementById('successModal').classList.remove('active');
+  window.location.hash = '#download';
+}
+
+function goAktivasi(){
+  document.getElementById('successModal').classList.remove('active');
+  autofillAktivasi();
+  document.getElementById('aktivasi').scrollIntoView({ behavior:'smooth' });
+  setTimeout(() => { verifikasiToko(true); }, 600);
+}
+
+/* ================= AUTOFILL ================= */
+function autofillAktivasi(){
+  const pt = localStorage.getItem('SK_PIN_TOKO');
+  if(!pt) return false;
+  document.getElementById('pinTokoInput').value = pt;
+  return true;
+}
+
+/* Device 1 = Kasir#1, Device 4 = Kasir#2, Device 5 = Kasir#3, Device 2 = Admin, Device 3 = Owner */
+function autofillDevicePins(){
+  const mapKasir = [1, 4, 5, 6, 7];
+  for(let i = 1; i <= KASIR_CARDS; i++){
+    const devNo = mapKasir[i-1] || (i+2);
+    const v = localStorage.getItem('SK_PIN_DEV' + devNo);
+    const el = document.getElementById('pinDevKasir' + i);
+    if(v && el) el.value = v;
+  }
+  const d2 = localStorage.getItem('SK_PIN_DEV2'); if(d2) document.getElementById('pinDevAdmin').value = d2;
+  const d3 = localStorage.getItem('SK_PIN_DEV3'); if(d3) document.getElementById('pinDevOwner').value = d3;
+}
+
+/* ================= KARTU KASIR DINAMIS ================= */
+function buildKasirCards(count){
+  KASIR_CARDS = Math.max(1, count);
+  const wrap = document.getElementById('kasirCards');
+  let html = '';
+  for(let i = 1; i <= KASIR_CARDS; i++){
+    html += `
+    <div class="role-card role-kasir" id="cardKasir${i}" style="margin-bottom:12px;">
+      <div class="role-head">💼 KASIR — DEVICE ${i}
+        ${i === 1 ? '<small>(3 shift)</small>' : '<small>(device kasir tambahan)</small>'}
+      </div>
+      <input type="text" id="pinDevKasir${i}" placeholder="PIN Device Kasir ${i}" inputmode="numeric" autocomplete="off">
+      <div class="dev-status" id="statKasir${i}">-</div>
+      <div class="shift-label">NAMA KASIR PER SHIFT (kosongkan bila belum ada)</div>
+      <input type="text" class="namaKasirShift" data-k="${i}" placeholder="Nama kasir shift 1" autocomplete="off">
+      <input type="text" class="namaKasirShift" data-k="${i}" placeholder="Nama kasir shift 2" autocomplete="off">
+      <input type="text" class="namaKasirShift" data-k="${i}" placeholder="Nama kasir shift 3" autocomplete="off">
+    </div>`;
+  }
+  wrap.innerHTML = html;
+  for(let i = 1; i <= KASIR_CARDS; i++){
+    document.getElementById('pinDevKasir' + i).addEventListener('input', updateAllDevStatus);
+  }
+}
+
+/* ================= LANGKAH 2 : VERIFIKASI ================= */
+async function cariTokoByPin(pin){
+  const cols = ["pin", "pin_toko"];
+  for(const c of cols){
+    const { data, error } = await sb.from("toko")
+      .select("id,nama,kode_toko,paket,is_trial,expired_at,status," + c)
+      .eq(c, pin).maybeSingle();
+    if(!error) return data;
+  }
+  throw new Error("Kolom PIN toko tidak ditemukan di database");
+}
+
+async function verifikasiToko(silent){
+  const btn = document.getElementById('btnVerif');
+  const pin = document.getElementById('pinTokoInput').value.trim();
+  if(!pin){ if(!silent) alert("❌ Masukkan PIN Toko dahulu"); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Memverifikasi...';
+
+  try{
+    const toko = await cariTokoByPin(pin);
+    if(!toko) throw new Error("PIN Toko tidak ditemukan / salah");
+
+    TOKO_AKTIF = toko;
+    renderInfoToko(toko);
+    await loadDevices(toko.id);
+
+    /* jumlah device kasir = total device - admin - owner */
+    buildKasirCards(Math.max(1, DEVICES_AKTIF.length - 2));
+    autofillDevicePins();
+    updateAllDevStatus();
+
+    document.getElementById('deviceArea').style.display = 'block';
+    await loadUsers(toko.id);
+
+  }catch(err){
+    TOKO_AKTIF = null;
+    document.getElementById('deviceArea').style.display = 'none';
+    document.getElementById('infoToko').style.display = 'none';
+    if(!silent) alert("❌ " + err.message);
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = '🔍 VERIFIKASI PIN TOKO';
+  }
+}
+
+function renderInfoToko(toko){
+  const now = new Date();
+  const expired = toko.expired_at ? new Date(toko.expired_at) : null;
+  const isExpired = expired && expired < now;
+
+  let statusBadge = "";
+  if(toko.is_trial) statusBadge = '<span class="badge badge-trial">🆓 TRIAL</span>';
+  else if(isExpired) statusBadge = '<span class="badge badge-expired">🔴 EXPIRED</span>';
+  else statusBadge = '<span class="badge badge-paid">💰 PAID</span>';
+
+  const expiredText = expired ? expired.toLocaleDateString("id-ID") : "-";
+  const diffDays = expired ? Math.ceil((expired - now) / (1000*60*60*24)) : null;
+  const daysInfo = diffDays !== null ? ` (${diffDays} hari lagi)` : "";
+
+  const box = document.getElementById('infoToko');
+  box.style.display = 'block';
+  box.innerHTML = `
+    ${statusBadge}
+    <br><br>
+    🏪 <b>${toko.nama}</b><br>
+    📦 Paket: ${toko.paket || "-"}<br>
+    🏷️ KODE TOKO: <b>${toko.kode_toko || "-"}</b><br>
+    ⏳ Expired: ${expiredText}${daysInfo}
+  `;
+}
+
+async function loadDevices(toko_id){
+  const { data, error } = await sb.from("devices")
+    .select("id, device_name, pin, is_active, status, app_mode")
+    .eq("toko_id", toko_id)
+    .order("created_at", { ascending:true });
+  if(error) throw error;
+  DEVICES_AKTIF = data || [];
+}
+
+function matchDevice(pinVal){
+  const v = String(pinVal || "").trim();
+  if(!v) return null;
+  return DEVICES_AKTIF.find(d => String(d.pin) === v) || null;
+}
+
+function statusFor(inputId, statId, cardId){
+  const input = document.getElementById(inputId);
+  const stat  = document.getElementById(statId);
+  const card  = document.getElementById(cardId);
+  if(!input) return null;
+  const d = matchDevice(input.value);
+  if(!input.value.trim()){
+    stat.textContent = "-"; stat.className = "dev-status"; card.classList.remove("ok"); return null;
+  }
+  if(d){
+    const st = d.status === "ACTIVE" ? "🟢" : (d.status === "SUSPEND" ? "🔴" : "⚪");
+    stat.textContent = `✅ ${st} ${d.device_name} (${d.app_mode || "WEB"})`;
+    stat.className = "dev-status ok";
+    card.classList.add("ok");
+    return d;
+  }
+  stat.textContent = "⚠️ PIN Device tidak cocok dengan toko ini";
+  stat.className = "dev-status err";
+  card.classList.remove("ok");
+  return null;
+}
+
+function updateAllDevStatus(){
+  for(let i = 1; i <= KASIR_CARDS; i++) statusFor('pinDevKasir'+i, 'statKasir'+i, 'cardKasir'+i);
+  statusFor('pinDevAdmin', 'statAdmin', 'cardAdmin');
+  statusFor('pinDevOwner', 'statOwner', 'cardOwner');
+}
+
+document.getElementById('pinDevAdmin').addEventListener('input', updateAllDevStatus);
+document.getElementById('pinDevOwner').addEventListener('input', updateAllDevStatus);
+
+async function loadUsers(toko_id){
+  const box = document.getElementById('listUser');
+  box.innerHTML = '<div style="opacity:.6">Memuat daftar user...</div>';
+  const { data, error } = await sb.from("users")
+    .select("id, nama, pin, role, is_active, device_id")
+    .eq("toko_id", toko_id)
+    .order("created_at", { ascending:true });
+  if(error){ box.innerHTML = ""; return; }
+
+  if(!data || !data.length){
+    box.innerHTML = '<b>👥 Daftar user login:</b><div class="userBox">Belum ada user (Kasir/Admin/Owner belum dibuat)</div>';
+    return;
+  }
+  let html = '<b>👥 Daftar user login yang sudah ada:</b>';
+  data.forEach(u => {
+    const dev = DEVICES_AKTIF.find(d => String(d.id) === String(u.device_id));
+    const badge = u.is_active ? '<span class="badge badge-paid">AKTIF</span>' : '<span class="badge badge-expired">SUSPEND</span>';
+    html += `<div class="userBox ${u.is_active ? '' : 'inactive'}">${u.role === 'KASIR' ? '💼' : u.role === 'ADMIN' ? '⚙️' : '👑'} <b>${u.nama}</b> ${badge}<br>🔐 PIN: <b>${u.pin || "-"}</b> • 📱 ${dev ? dev.device_name : "-"}</div>`;
+  });
+  box.innerHTML = html;
+}
+
+async function generatePin(){
+  while(true){
+    const pin = Math.floor(100000 + Math.random()*900000).toString();
+    const { data } = await sb.from("users").select("id").eq("pin", pin).maybeSingle();
+    if(!data) return pin;
+  }
+}
+
+/* ================= LANGKAH 2 : BUAT PIN LOGIN ================= */
+async function buatPinLogin(){
+  if(!TOKO_AKTIF){ alert("❌ Verifikasi PIN Toko dahulu"); return; }
+
+  const btn = document.getElementById('btnBuat');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Membuat PIN Login...';
+
+  try{
+    const jobs = [];           // {role, label, icon, dev, nama}
+    const usedDevices = new Set();
+    let totalKasirNama = 0;
+
+    /* --- KASIR: 1-3 device × 3 shift --- */
+    for(let i = 1; i <= KASIR_CARDS; i++){
+      const dev = statusFor('pinDevKasir'+i, 'statKasir'+i, 'cardKasir'+i);
+      const names = Array.from(document.querySelectorAll('.namaKasirShift[data-k="'+i+'"]'))
+        .map(x => x.value.trim()).filter(Boolean);
+      if(dev){
+        if(usedDevices.has(String(dev.id))) throw new Error("PIN Device Kasir " + i + " sama dengan kartu lain — harus berbeda!");
+        usedDevices.add(String(dev.id));
+        if(!dev.is_active) throw new Error("Device Kasir " + i + " sedang suspend");
+        names.forEach(n => { jobs.push({ role:'KASIR', label:'KASIR', icon:'💼', dev, nama:n }); totalKasirNama++; });
+      } else if(names.length){
+        throw new Error("PIN Device Kasir " + i + " belum cocok / belum diisi");
+      }
+    }
+    if(!totalKasirNama) throw new Error("Isi minimal 1 nama kasir (shift)");
+
+    /* --- ADMIN --- */
+    const devA = statusFor('pinDevAdmin', 'statAdmin', 'cardAdmin');
+    const namaA = document.getElementById('namaAdmin').value.trim();
+    if(!namaA) throw new Error("Nama admin wajib diisi");
+    if(!devA)  throw new Error("PIN Device Admin belum cocok / belum diisi");
+    if(!devA.is_active) throw new Error("Device Admin sedang suspend");
+    if(usedDevices.has(String(devA.id))) throw new Error("PIN Device Admin sama dengan kartu lain — harus berbeda!");
+    usedDevices.add(String(devA.id));
+
+    /* --- OWNER --- */
+    const devO = statusFor('pinDevOwner', 'statOwner', 'cardOwner');
+    const namaO = document.getElementById('namaOwner').value.trim();
+    if(!namaO) throw new Error("Nama owner wajib diisi");
+    if(!devO)  throw new Error("PIN Device Owner belum cocok / belum diisi");
+    if(!devO.is_active) throw new Error("Device Owner sedang suspend");
+    if(usedDevices.has(String(devO.id))) throw new Error("PIN Device Owner sama dengan kartu lain — harus berbeda!");
+    usedDevices.add(String(devO.id));
+
+    jobs.push({ role:'ADMIN', label:'ADMIN', icon:'⚙️', dev:devA, nama:namaA });
+    jobs.push({ role:'OWNER', label:'OWNER', icon:'👑', dev:devO, nama:namaO });
+
+    /* --- nomor urut awal per device+role (kasir boleh banyak per device = shift) --- */
+    const counter = {};
+    for(const j of jobs){
+      const key = j.dev.id + '|' + j.role;
+      if(!(key in counter)){
+        const { data: exist } = await sb.from("users")
+          .select("id").eq("device_id", j.dev.id).eq("role", j.role).eq("is_active", true);
+        counter[key] = (exist ? exist.length : 0);
+        /* admin & owner tidak boleh duplikat di device yang sama */
+        if(j.role !== 'KASIR' && counter[key] > 0){
+          throw new Error("Device " + j.dev.device_name + " sudah memiliki " + j.label + " aktif");
+        }
+      }
+    }
+
+    /* --- buat user satu per satu --- */
+    const hasil = [];
+    for(const j of jobs){
+      const key = j.dev.id + '|' + j.role;
+      counter[key] += 1;
+      const nomor = counter[key];
+      const namaFinal = `${j.nama} (${j.label.charAt(0) + j.label.slice(1).toLowerCase()} ${nomor})`;
+      const pin = await generatePin();
+
+      const { error: errUser } = await sb.from("users").insert({
+        nama: namaFinal, pin: pin,
+        toko_id: TOKO_AKTIF.id, device_id: j.dev.id,
+        role: j.role, is_active: true
+      });
+      if(errUser) throw errUser;
+
+      await sb.from("devices").update({ app_mode: j.role }).eq("id", j.dev.id);
+
+      hasil.push({
+        role: j.role, label: j.label, icon: j.icon,
+        namaFinal, pin,
+        devName: j.dev.device_name, devPin: j.dev.pin
+      });
+    }
+
+    /* --- ✅ sukses: sembunyikan form, tampilkan ringkasan --- */
+    renderHasil(hasil);
+    document.getElementById('verifArea').style.display = 'none';
+    document.getElementById('deviceArea').style.display = 'none';
+    document.getElementById('infoToko').style.display = 'none';
+    document.getElementById('hasilArea').style.display = 'block';
+    document.getElementById('hasilArea').scrollIntoView({ behavior:'smooth', block:'center' });
+
+    try{
+      localStorage.setItem('SK_AKTIVASI_DONE', '1');
+      localStorage.setItem('SK_HASIL_LOGIN', JSON.stringify(hasil));
+    }catch(ex){}
+
+  }catch(err){
+    alert("❌ GAGAL:\n" + err.message);
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = '🔐 BUAT PIN LOGIN (KASIR, ADMIN, OWNER)';
+  }
+}
+
+function renderHasil(list){
+  const box = document.getElementById('hasilList');
+  box.innerHTML = list.map((r, idx) => `
+    <div class="pin-group hasil-${r.role.toLowerCase()}">
+      <div class="label">${r.icon} PIN LOGIN ${r.label}</div>
+      <div class="value">
+        <span id="hasilPin${idx}">${r.pin}</span>
+        <button class="copy-btn" onclick="copyPin('hasilPin${idx}', this)">📋 Salin</button>
+      </div>
+      <div class="sub">👤 ${r.namaFinal} • 📱 ${r.devName} (PIN Device ${r.devPin})</div>
+    </div>
+  `).join('');
+}
+
+function aktivasiUlang(){
+  if(!confirm('Buka kembali form aktivasi? PIN yang sudah dibuat tetap aman.')) return;
+  try{ localStorage.removeItem('SK_AKTIVASI_DONE'); }catch(ex){}
+  document.getElementById('hasilArea').style.display = 'none';
+  document.getElementById('verifArea').style.display = 'block';
+  document.getElementById('aktivasi').scrollIntoView({ behavior:'smooth' });
+}
+
+/* =====================================================
+   📋 COPY SEMUA PIN — mencontoh copyDataCustomer()
+   di halaman DAFTAR TOKO (format teks sama persis)
+===================================================== */
+function buildTextFromDb(toko, deviceList, userList){
+  let text = "📱 SMART KASIR\n\n";
+  text += "🏪 " + toko.nama + "\n";
+  text += "📦 Paket: " + (toko.paket || "-") + "\n";
+  text += "🔐 PIN TOKO: " + (toko.pin || toko.pin_toko || "-") + "\n\n";
+  text += "👥 DEVICE\n\n";
+
+  (deviceList || []).forEach(device => {
+    text += "📲 " + (device.device_name || "DEVICE") + "\n";
+    text += "PIN DEVICE: " + (device.pin || "-") + "\n\n";
+
+    const userPerDevice = (userList || []).filter(user =>
+      String(user.device_id || "") === String(device.id || "")
+    );
+    userPerDevice.forEach(user => {
+      let icon = "👤";
+      if(user.role === "ADMIN") icon = "🛡️";
+      if(user.role === "OWNER") icon = "👑";
+      if(user.role === "DEVELOPER") icon = "👨‍💻";
+      text += icon + " " + user.nama + "\n";
+      text += "ROLE: " + user.role + "\n";
+      text += "PIN: " + (user.pin || "-") + "\n\n";
+    });
+    text += "\n";
+  });
+  return text;
+}
+
+function buildTextFromLocal(){
+  let text = "📱 SMART KASIR\n\n";
+  text += "🏪 " + (localStorage.getItem('SK_TOKO_NAMA') || '-') + "\n";
+  text += "🏷️ KODE TOKO: " + (localStorage.getItem('SK_KODE_TOKO') || '-') + "\n";
+  text += "🔐 PIN TOKO: " + (localStorage.getItem('SK_PIN_TOKO') || '-') + "\n\n";
+  text += "👥 DEVICE\n\n";
+  for(let i = 1; i <= 5; i++){
+    const p = localStorage.getItem('SK_PIN_DEV' + i);
+    if(p) text += "📲 Device " + i + "\nPIN DEVICE: " + p + "\n\n";
+  }
+  try{
+    const hasil = JSON.parse(localStorage.getItem('SK_HASIL_LOGIN') || '[]');
+    if(hasil.length){
+      text += "👤 DATA USER LOGIN\n\n";
+      hasil.forEach(r => {
+        text += (r.icon || '👤') + " " + r.namaFinal + "\n";
+        text += "ROLE: " + r.role + "\n";
+        text += "PIN: " + r.pin + "\n";
+        text += "📱 " + r.devName + "\n\n";
+      });
+    }
+  }catch(e){}
+  return text;
+}
+
+/* salin tahan error: Clipboard API → fallback textarea (WebView/content://) */
+function salinText(teks){
+  return new Promise(resolve => {
+    const ok = () => { alert("✅ Semua PIN berhasil dicopy"); resolve(true); };
+    const fallback = () => {
+      const ta = document.createElement('textarea');
+      ta.value = teks;
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      ta.setAttribute('readonly', '');
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, 999999);
+      let success = false;
+      try{ success = document.execCommand('copy'); }catch(e){}
+      ta.remove();
+      if(success) ok();
+      else alert("❌ Gagal menyalin otomatis — silakan salin manual dari ringkasan di layar.");
+      resolve(success);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(teks).then(ok).catch(fallback);
+    } else fallback();
+  });
+}
+
+async function copySemuaPin(){
+  try{
+    /*优先 ambil data LIVE dari Supabase (paling akurat) */
+    let toko = TOKO_AKTIF;
+    if(!toko){
+      const pt = localStorage.getItem('SK_PIN_TOKO');
+      if(pt){
+        try{ toko = await cariTokoByPin(pt); }catch(e){ toko = null; }
+      }
+    }
+    if(toko){
+      const { data: deviceList } = await sb.from("devices")
+        .select("id,device_name,pin").eq("toko_id", toko.id);
+      const { data: userList } = await sb.from("users")
+        .select("nama,role,pin,device_id").eq("toko_id", toko.id);
+      await salinText(buildTextFromDb(toko, deviceList || [], userList || []));
+    } else {
+      /* fallback: data tersimpan di localStorage browser ini */
+      await salinText(buildTextFromLocal());
+    }
+  }catch(err){
+    alert("❌ Gagal menyalin:\n" + (err.message || err));
+  }
+}
+
+/* ================= UTIL ================= */
+function copyPin(id, btn){
+  const text = document.getElementById(id).textContent;
+  if(!text || text === '-') return;
+  const done = () => {
+    const original = btn.textContent;
+    btn.textContent = '✅ Tersalin!';
+    btn.style.background = '#22c55e';
+    setTimeout(() => { btn.textContent = original; btn.style.background = ''; }, 1500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(() => { fallbackCopy(text); done(); });
+  }else{ fallbackCopy(text); done(); }
+}
+function fallbackCopy(text){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  ta.remove();
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e){
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target){ e.preventDefault(); target.scrollIntoView({ behavior:'smooth', block:'start' }); }
+  });
+});
+
+
+/* =====================================================
+   📥 DIRECT DOWNLOAD ENGINE
+   Cukup tempel link Drive / ID / link Supabase Storage
+   di DOWNLOAD_LINKS — tombol otomatis jadi direct download.
+===================================================== */
+const DOWNLOAD_LINKS = {
+  owner_exe: "",
+  kasir_exe: "",
+  admin_exe: "https://github.com/smartkasirapp/smart-kasir-installer/releases/latest/download/SMART-KASIR-ADMIN.exe",
+  owner_apk: "",
+  kasir_apk: "",
+  admin_apk: ""
+};
+const DL_NAMES = {
+  owner_exe: "SMART-KASIR-OWNER.exe",
+  kasir_exe: "SMART-KASIR-KASIR.exe",
+  admin_exe: "SMART-KASIR-ADMIN.exe",
+  owner_apk: "SMART-KASIR-OWNER.apk",
+  kasir_apk: "SMART-KASIR-KASIR.apk",
+  admin_apk: "SMART-KASIR-ADMIN.apk"
+};
+
+/* ambil ID dari berbagai format link Drive */
+function extractDriveId(u){
+  if(!u) return null;
+  u = u.trim();
+  if(/^[\w-]{20,}$/.test(u)) return u;                       // raw ID
+  const m = u.match(/\/file\/d\/([\w-]+)/) || u.match(/[?&]id=([\w-]+)/);
+  return m ? m[1] : null;
+}
+
+/* konversi jadi URL yang memaksa browser mengunduh */
+function toDirectUrl(u, filename){
+  if(!u) return null;
+  u = u.trim();
+  const id = extractDriveId(u);
+  if(id){
+    return "https://drive.usercontent.google.com/download?id=" + id +
+           "&export=download&confirm=t&filename=" + encodeURIComponent(filename || "smart-kasir");
+  }
+  if(u.includes("supabase.co/storage")){
+    return u + (u.includes("?") ? "&" : "?") + "download=" + encodeURIComponent(filename || "smart-kasir");
+  }
+  return u;  // diasumsikan sudah link direct (server sendiri, mediafire direct, dll)
+}
+
+/* toast kecil sebagai feedback klik */
+function toastDl(msg){
+  let t = document.getElementById('dlToast');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'dlToast';
+    t.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);" +
+      "background:#0f172a;border:1px solid #38bdf8;color:#fff;padding:12px 20px;border-radius:999px;" +
+      "font-size:13px;font-weight:700;z-index:99999;box-shadow:0 10px 30px rgba(0,0,0,.5);display:none;max-width:90%;text-align:center;";
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(t._h);
+  t._h = setTimeout(() => { t.style.display = 'none'; }, 3000);
+}
+
+function initDownloadButtons(){
+  document.querySelectorAll('a[data-dl]').forEach(a => {
+    const key = a.getAttribute('data-dl');
+    const raw = (DOWNLOAD_LINKS[key] || "").trim();
+    const kosong = !raw || raw.includes("your-link");
+    const url = kosong ? null : toDirectUrl(raw, DL_NAMES[key]);
+
+    if(url){
+      a.href = url;
+      a.removeAttribute('target');           // biar browser unduh di tab ini, bukan buka preview
+      a.addEventListener('click', () => toastDl("⏳ Download dimulai: " + (DL_NAMES[key] || key)));
+    } else {
+      a.href = "#";
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        alert("⚠️ Link download " + (DL_NAMES[key] || key) + " belum diisi.\n\nHubungi admin, atau isi DOWNLOAD_LINKS di kode halaman ini.");
+      });
+    }
+  });
+}
+window.addEventListener('load', initDownloadButtons);
+
+/* ================= STATE SAAT HALAMAN DIBUKA ================= */
+window.addEventListener('load', () => {
+  /* Langkah 1 sudah selesai di browser ini → form pendaftaran tetap tersembunyi */
+  let regisDoneFlag = false, aktivasiDoneFlag = false;
+  try{
+    regisDoneFlag    = localStorage.getItem('SK_REGIS_DONE') === '1';
+    aktivasiDoneFlag = localStorage.getItem('SK_AKTIVASI_DONE') === '1';
+  }catch(ex){ regisDoneFlag = false; aktivasiDoneFlag = false; }
+
+  if(regisDoneFlag){
+    form.style.display = 'none';
+    showRegisDone(
+      localStorage.getItem('SK_TOKO_NAMA')  || '-',
+      localStorage.getItem('SK_KODE_TOKO')  || '-',
+      localStorage.getItem('SK_PIN_TOKO')   || '-'
+    );
+  }
+  /* Langkah 2 sudah selesai → tampilkan ringkasan PIN, form aktivasi tersembunyi */
+  if(aktivasiDoneFlag){
+    try{
+      const saved = JSON.parse(localStorage.getItem('SK_HASIL_LOGIN') || '[]');
+      if(saved.length){
+        renderHasil(saved);
+        document.getElementById('verifArea').style.display = 'none';
+        document.getElementById('hasilArea').style.display = 'block';
+      }
+    }catch(ex){}
+  }
+  if(autofillAktivasi() && !aktivasiDoneFlag){
+    const hint = document.createElement('div');
+    hint.className = 'alert';
+    hint.innerHTML = '<strong>✨ Form terisi otomatis</strong> dari pendaftaran Anda. Klik "Verifikasi PIN Toko" untuk lanjut.';
+    const wrap = document.getElementById('pinTokoInput').closest('.form-group');
+    wrap.parentNode.insertBefore(hint, wrap);
+  }
+});
+</script>
+
+</body>
+</html>
